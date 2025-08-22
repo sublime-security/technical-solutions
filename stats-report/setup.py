@@ -1,7 +1,7 @@
 from setuptools import setup, find_namespace_packages
 
 setup(
-    name="stats_report",
+    name="stats-report",
     version="0.1.0",
     packages=find_namespace_packages(include=["*"]),
     install_requires=[
