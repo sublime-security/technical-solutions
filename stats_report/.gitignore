@@ -1,0 +1,4 @@
+venv/
+reports/
+*.egg*
+redact.py
