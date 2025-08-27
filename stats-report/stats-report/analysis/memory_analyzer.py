@@ -67,6 +67,15 @@ class MemoryAnalyzer(BaseAnalyzer):
             self._malicious_messages = []
             verdict_counts = {}
             
+            # Log all message groups for debugging
+            for msg in self.message_groups:
+                logger.debug(
+                    f"Group {msg.id}: verdict={msg.attack_score_verdict}, "
+                    f"rules={len(msg.flagged_rules)}, "
+                    f"attack_types={msg.attack_types}, "
+                    f"tactics={msg.tactics_and_techniques}"
+                )
+            
             for msg in self.message_groups:
                 verdict = getattr(msg, "attack_score_verdict", None)
                 if verdict:
@@ -81,10 +90,64 @@ class MemoryAnalyzer(BaseAnalyzer):
     def _get_user_reported_messages(self) -> List[MessageGroup]:
         """Get cached list of user reported messages."""
         if self._user_reported_messages is None:
-            self._user_reported_messages = [
+            # First, log what we received from the API
+            logger.debug(f"Processing {len(self.message_groups)} total message groups for user reports")
+            for msg in self.message_groups:
+                if msg.user_reports:
+                    logger.debug(f"Group {msg.id} has {len(msg.user_reports)} user reports:")
+                    for report in msg.user_reports:
+                        logger.debug(f"  - Reporter: {report.reporter}, Channel: {report.channel}, Time: {report.reported_at}")
+            
+            # Filter for user-reported messages
+            self._user_reported_messages = []
+            for msg in self.message_groups:
+                if msg.user_reports:
+                    logger.debug(f"Checking group {msg.id} with {len(msg.user_reports)} reports")
+                    valid_reports = [r for r in msg.user_reports if r.reporter]
+                    if valid_reports:
+                        logger.info(f"Found valid user reports in group {msg.id}: {[r.reporter for r in valid_reports]}")
+                        self._user_reported_messages.append(msg)
+                    else:
+                        logger.warning(f"Group {msg.id} has reports but no valid reporters: {[r.reporter for r in msg.user_reports]}")
+            
+            # Log detailed user report statistics
+            total_messages = sum(len(msg.messages) for msg in self._user_reported_messages)
+            total_reporters = len({
+                report.reporter 
+                for msg in self._user_reported_messages 
+                for report in msg.user_reports 
+                if report.reporter
+            })
+            
+            logger.info(
+                f"Found {len(self._user_reported_messages)} user-reported groups "
+                f"containing {total_messages} total messages "
+                f"from {total_reporters} unique reporters"
+            )
+            
+            # Log reporter breakdown
+            reporter_counts = Counter(
+                report.reporter
+                for msg in self._user_reported_messages
+                for report in msg.user_reports
+                if report.reporter
+            )
+            for reporter, count in reporter_counts.most_common(5):
+                logger.debug(f"Top reporter: {reporter} ({count} reports)")
+            
+            # Log groups that have user_reports but were filtered out
+            filtered_groups = [
                 msg for msg in self.message_groups
-                if msg.review_status  # Messages with review status are user-reported
+                if msg.user_reports and not any(report.reporter for report in msg.user_reports)
             ]
+            if filtered_groups:
+                logger.warning(
+                    f"Found {len(filtered_groups)} groups with user_reports but no valid reporter emails. "
+                    "These were excluded from user report analysis."
+                )
+                for msg in filtered_groups:
+                    logger.debug(f"Group {msg.id} has invalid user reports: {[report.reporter for report in msg.user_reports]}")
+            
         return self._user_reported_messages
     
     def _get_total_malicious_count(self) -> int:
@@ -113,11 +176,12 @@ class MemoryAnalyzer(BaseAnalyzer):
         type_counts: Dict[str, int] = defaultdict(int)
         
         for msg in malicious_messages:
-            for rule in msg.flagged_rules:
-                if rule.get("name"):
-                    attack_type = rule["name"]
-                    type_groups[attack_type].add(msg.id)
-                    type_counts[attack_type] += msg.message_count
+            # Use the pre-parsed attack_types list
+            logger.debug(f"Processing attack types for group {msg.id}: {msg.attack_types}")
+            for attack_type in msg.attack_types:
+                type_groups[attack_type].add(msg.id)
+                type_counts[attack_type] += msg.message_count
+                logger.debug(f"Group {msg.id}: Added attack type {attack_type} (count: {msg.message_count})")
         
         # Convert to analysis objects
         return [
@@ -142,10 +206,12 @@ class MemoryAnalyzer(BaseAnalyzer):
         tactic_counts: Dict[str, int] = defaultdict(int)
         
         for msg in malicious_messages:
-            for rule in msg.flagged_rules:
-                if rule.get("name"):
-                    tactic_groups[rule["name"]].add(msg.id)
-                    tactic_counts[rule["name"]] += msg.message_count
+            # Use the pre-parsed tactics_and_techniques list
+            logger.debug(f"Processing tactics for group {msg.id}: {msg.tactics_and_techniques}")
+            for tactic in msg.tactics_and_techniques:
+                tactic_groups[tactic].add(msg.id)
+                tactic_counts[tactic] += msg.message_count
+                logger.debug(f"Group {msg.id}: Added tactic {tactic} (count: {msg.message_count})")
         
         # Convert to analysis objects
         return [
@@ -170,10 +236,12 @@ class MemoryAnalyzer(BaseAnalyzer):
         method_counts: Dict[str, int] = defaultdict(int)
         
         for msg in malicious_messages:
-            for rule in msg.flagged_rules:
-                severity = rule.get("severity", "unknown")
-                method_groups[severity].add(msg.id)
-                method_counts[severity] += msg.message_count
+            # Use the pre-parsed detection_methods list
+            logger.debug(f"Processing detection methods for group {msg.id}: {msg.detection_methods}")
+            for method in msg.detection_methods:
+                method_groups[method].add(msg.id)
+                method_counts[method] += msg.message_count
+                logger.debug(f"Group {msg.id}: Added detection method {method} (count: {msg.message_count})")
         
         # Convert to analysis objects
         return [
@@ -252,23 +320,25 @@ class MemoryAnalyzer(BaseAnalyzer):
         user_messages = self._get_user_reported_messages()
         total_messages = self._get_total_user_reported_count()
         
-        # Group by reporter
+        # Group by reporter email
         reporter_groups: Dict[str, List[MessageGroup]] = defaultdict(list)
         for msg in user_messages:
-            if msg.review_status:  # Only include messages with review status
-                reporter_groups[msg.review_status].append(msg)
+            for report in msg.user_reports:
+                if report.reporter:  # Only include messages with reporter email
+                    reporter_groups[report.reporter].append(msg)
         
         # Calculate effectiveness for each reporter
         results = []
         for reporter, messages in reporter_groups.items():
+            # Count messages for this reporter
             total_reporter_messages = sum(msg.message_count for msg in messages)
             
             # Calculate verdict distributions
             verdict_counts: Dict[str, int] = defaultdict(int)
             for msg in messages:
-                            verdict = self.get_verdict(msg, self.config.verdict_type == "ASA Verdict")
-            if verdict:  # Only count if we have a verdict
-                verdict_counts[verdict.lower()] += msg.message_count
+                verdict = self.get_verdict(msg, self.config.verdict_type == "ASA Verdict")
+                if verdict:  # Only count if we have a verdict
+                    verdict_counts[verdict.lower()] += msg.message_count
             
             # Calculate percentages
             effectiveness = {
@@ -276,12 +346,22 @@ class MemoryAnalyzer(BaseAnalyzer):
                 for verdict, count in verdict_counts.items()
             }
             
+            # Calculate percentage of total user reports
+            total_user_reports = sum(
+                len(msg.user_reports) 
+                for msg in self._user_reported_messages
+            )
+            reporter_report_count = sum(
+                len(msg.user_reports) 
+                for msg in messages
+            )
+            
             results.append(UserReportAnalysis(
                 reporter_email=reporter,
                 report_groups=len(messages),
                 total_reported_messages=total_reporter_messages,
                 percentage_of_total=self.calculate_percentage(
-                    total_reporter_messages, total_messages
+                    reporter_report_count, total_user_reports
                 ),
                 effectiveness=effectiveness
             ))

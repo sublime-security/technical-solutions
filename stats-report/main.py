@@ -21,12 +21,8 @@ from stats_report.analysis.memory_analyzer import MemoryAnalyzer
 from stats_report.analysis.sql_analyzer import SQLiteAnalyzer
 from stats_report.output.factory import create_formatter
 
-# Configure logging
-log_level = logging.DEBUG if '--debug' in sys.argv else logging.INFO
-logging.basicConfig(
-    level=log_level,
-    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s'
-)
+# Import logging config
+from stats_report.core.logging_config import setup_logging
 logger = logging.getLogger(__name__)
 
 def setup_cli() -> argparse.ArgumentParser:
@@ -83,15 +79,22 @@ Examples:
                        help='Path to output file. If not specified, will use timestamp-based filename')
     
     # API specific options
-    parser.add_argument('--days-back',
-                       type=int,
-                       default=30,
-                       help='Number of days to look back when fetching from API')
+    lookback_group = parser.add_mutually_exclusive_group()
+    lookback_group.add_argument('--days-back',
+                              type=int,
+                              help='Number of days to look back when fetching from API (default: 30)')
+    lookback_group.add_argument('--hours-back',
+                              type=int,
+                              help='Number of hours to look back when fetching from API (for high-volume instances)')
     
     # Debug options
     parser.add_argument('--debug',
                        action='store_true',
                        help='Enable debug logging')
+    
+    # Filtering options
+    parser.add_argument('--ignore-ids',
+                       help='Comma-separated list of message group IDs to ignore')
     
     return parser
 
@@ -115,10 +118,16 @@ def validate_args(args: argparse.Namespace) -> bool:
             logger.error("API URL must start with http:// or https://")
             return False
     
-    # Validate days_back
-    if args.days_back <= 0:
-        logger.error("--days-back must be greater than 0")
-        return False
+    # Validate lookback options
+    if args.mode == 'api':
+        if not args.days_back and not args.hours_back:
+            args.days_back = 30  # Set default if neither option provided
+        elif args.days_back and args.days_back <= 0:
+            logger.error("--days-back must be greater than 0")
+            return False
+        elif args.hours_back and args.hours_back <= 0:
+            logger.error("--hours-back must be greater than 0")
+            return False
     
     return True
 
@@ -147,14 +156,26 @@ async def fetch_api_data(args: argparse.Namespace) -> dict:
     
     # Calculate date range
     end_date = datetime.now()
-    start_date = end_date - timedelta(days=args.days_back)
+    if args.hours_back:
+        start_date = end_date - timedelta(hours=args.hours_back)
+    else:
+        start_date = end_date - timedelta(days=args.days_back)
     date_range = DateRange(start=start_date, end=end_date)
     
     # Initialize API client
     async with APIClient(args.input, api_key) as client:
         try:
             logger.info("Fetching data from API...")
-            return await client.fetch_all_data(date_range)
+            # Parse ignore list
+            ignore_ids = args.ignore_ids.split(",") if args.ignore_ids else None
+            if ignore_ids:
+                logger.info(f"Will ignore {len(ignore_ids)} message groups: {ignore_ids}")
+            
+            return await client.fetch_all_data(
+                date_range,
+                fetch_asa_verdicts=args.use_asa,
+                ignore_ids=ignore_ids
+            )
         except APIError as e:
             logger.error(f"API request failed: {e}")
             raise
@@ -163,6 +184,9 @@ async def main():
     """Main entry point for the stats report generator."""
     parser = setup_cli()
     args = parser.parse_args()
+    
+    # Set up logging early
+    setup_logging(debug=args.debug)
     
     if not validate_args(args):
         sys.exit(1)
@@ -173,7 +197,10 @@ async def main():
         
         # Calculate date range
         end_date = datetime.now()
-        start_date = end_date - timedelta(days=args.days_back)
+        if args.hours_back:
+            start_date = end_date - timedelta(hours=args.hours_back)
+        else:
+            start_date = end_date - timedelta(days=args.days_back)
         date_range = DateRange(start=start_date, end=end_date)
 
         # Set up configuration

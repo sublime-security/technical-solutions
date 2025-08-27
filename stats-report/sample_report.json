@@ -1,1735 +1,420 @@
 {
   "report_metadata": {
-    "generated_at": "2025-09-21T17:52:18.051529",
+    "generated_at": "2025-09-26T16:18:11.938039",
     "date_range": {
-      "start": "2025-09-13T17:51:45.943171",
-      "end": "2025-09-21T17:51:45.943171"
+      "start": "2025-09-25T16:15:57.311353",
+      "end": "2025-09-26T16:15:57.311353"
     },
     "org_stats": {
-      "messages_processed": 874777,
-      "active_mailboxes": 3103,
-      "active_detection_rules": 706
+      "messages_processed": 99710,
+      "active_mailboxes": 4752,
+      "active_detection_rules": 695
     }
   },
   "attack_score_accuracy": {
     "overview": {
-      "total_messages_with_asv_and_classification": 1398,
-      "messages_with_agreement": 471,
-      "accuracy_rate": 33.69098712446352
+      "total_messages_with_asv_and_classification": 6408,
+      "messages_with_agreement": 6400,
+      "accuracy_rate": 99.875166
     },
     "classification_overrides": [
       {
         "attack_score_verdict": "graymail",
+        "customer_classification": "spam",
+        "count": 6145,
+        "percentage": 95.89575530586767
+      },
+      {
+        "attack_score_verdict": "likely_benign",
+        "customer_classification": "spam",
+        "count": 26,
+        "percentage": 0.4057428214731586
+      },
+      {
+        "attack_score_verdict": "likely_benign",
         "customer_classification": "malicious",
-        "count": 333,
-        "percentage": 23.819742489270386
+        "count": 24,
+        "percentage": 0.37453183520599254
+      },
+      {
+        "attack_score_verdict": "graymail",
+        "customer_classification": "malicious",
+        "count": 18,
+        "percentage": 0.2808988764044944
       },
       {
         "attack_score_verdict": "spam",
         "customer_classification": "malicious",
-        "count": 235,
-        "percentage": 16.80972818311874
-      },
-      {
-        "attack_score_verdict": "likely_benign",
-        "customer_classification": "malicious",
-        "count": 193,
-        "percentage": 13.80543633762518
-      },
-      {
-        "attack_score_verdict": "unknown",
-        "customer_classification": "malicious",
-        "count": 36,
-        "percentage": 2.575107296137339
-      },
-      {
-        "attack_score_verdict": "likely_benign",
-        "customer_classification": "spam",
-        "count": 36,
-        "percentage": 2.575107296137339
+        "count": 18,
+        "percentage": 0.2808988764044944
       },
       {
         "attack_score_verdict": "likely_benign",
         "customer_classification": "benign",
-        "count": 20,
-        "percentage": 1.4306151645207439
+        "count": 14,
+        "percentage": 0.2184769038701623
       },
       {
-        "attack_score_verdict": "suspicious",
-        "customer_classification": "spam",
-        "count": 16,
-        "percentage": 1.144492131616595
+        "attack_score_verdict": "unknown",
+        "customer_classification": "malicious",
+        "count": 9,
+        "percentage": 0.1404494382022472
       },
       {
         "attack_score_verdict": "malicious",
         "customer_classification": "spam",
-        "count": 16,
-        "percentage": 1.144492131616595
-      },
-      {
-        "attack_score_verdict": "graymail",
-        "customer_classification": "spam",
-        "count": 14,
-        "percentage": 1.0014306151645207
+        "count": 5,
+        "percentage": 0.0780274656679151
       },
       {
         "attack_score_verdict": "unknown",
-        "customer_classification": "spam",
-        "count": 14,
-        "percentage": 1.0014306151645207
+        "customer_classification": "graymail",
+        "count": 3,
+        "percentage": 0.04681647940074907
+      },
+      {
+        "attack_score_verdict": "likely_benign",
+        "customer_classification": "graymail",
+        "count": 2,
+        "percentage": 0.031210986267166042
       },
       {
         "attack_score_verdict": "suspicious",
         "customer_classification": "malicious",
-        "count": 14,
-        "percentage": 1.0014306151645207
+        "count": 2,
+        "percentage": 0.031210986267166042
+      },
+      {
+        "attack_score_verdict": "suspicious",
+        "customer_classification": "spam",
+        "count": 1,
+        "percentage": 0.015605493133583021
+      },
+      {
+        "attack_score_verdict": "unknown",
+        "customer_classification": "spam",
+        "count": 1,
+        "percentage": 0.015605493133583021
       }
     ]
   },
   "malicious_messages_overview": {
     "key_findings": {
       "total_malicious_messages": {
-        "groups": 439,
-        "individual_messages": 889
+        "groups": 110,
+        "individual_messages": 194
       },
       "malicious_not_in_spam": {
-        "groups": 365,
-        "individual_messages": 811,
-        "percentage": 91.22609673790775
+        "groups": 98,
+        "individual_messages": 181,
+        "percentage": 93.29896907216495
       }
     },
     "attack_types": [
       {
-        "attack_type": "Spam: Default Microsoft Exchange Online sender domain (onmicrosoft.com)",
-        "message_groups": 71,
-        "total_individual_messages": 73,
-        "percentage_of_total": 8.211473565804274
-      },
-      {
-        "attack_type": "Remediate malicious flagged messages",
-        "message_groups": 437,
-        "total_individual_messages": 836,
-        "percentage_of_total": 94.03824521934759
-      },
-      {
-        "attack_type": "Credential phishing: 'Secure message' and engaging language",
-        "message_groups": 8,
-        "total_individual_messages": 15,
-        "percentage_of_total": 1.687289088863892
-      },
-      {
-        "attack_type": "BEC with unusual reply-to or return-path mismatch",
-        "message_groups": 23,
-        "total_individual_messages": 36,
-        "percentage_of_total": 4.049493813273341
-      },
-      {
-        "attack_type": "Advance Fee Fraud (AFF) from freemail provider or suspicious TLD",
-        "message_groups": 48,
-        "total_individual_messages": 69,
-        "percentage_of_total": 7.761529808773904
-      },
-      {
-        "attack_type": "Fake thread with suspicious indicators",
-        "message_groups": 18,
-        "total_individual_messages": 21,
-        "percentage_of_total": 2.3622047244094486
-      },
-      {
-        "attack_type": "DocuSign Detection Rules of 2 or more",
-        "message_groups": 17,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "attack_type": "Credential phishing: DocuSign embedded image lure with no DocuSign domains in links",
-        "message_groups": 9,
-        "total_individual_messages": 23,
-        "percentage_of_total": 2.5871766029246346
-      },
-      {
-        "attack_type": "Brand impersonation: DocuSign",
-        "message_groups": 16,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "attack_type": "- Double TLD (Piggybacking valid TLD)",
-        "message_groups": 27,
-        "total_individual_messages": 91,
-        "percentage_of_total": 10.236220472440944
-      },
-      {
-        "attack_type": "Credential phishing: Engaging language and other indicators (untrusted sender)",
-        "message_groups": 35,
-        "total_individual_messages": 52,
-        "percentage_of_total": 5.849268841394826
-      },
-      {
-        "attack_type": "3 or more Detection Rules detected",
-        "message_groups": 154,
-        "total_individual_messages": 208,
-        "percentage_of_total": 23.397075365579305
-      },
-      {
-        "attack_type": "Credential phishing language and suspicious indicators (unknown sender)",
-        "message_groups": 11,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "attack_type": "Brand impersonation: Fake DocuSign HTML table not linking to DocuSign domains",
-        "message_groups": 5,
-        "total_individual_messages": 14,
-        "percentage_of_total": 1.574803149606299
-      },
-      {
-        "attack_type": "Impersonation: Internal corporate services",
-        "message_groups": 5,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "attack_type": "Impersonation: Human Resources with link or attachment and engaging language",
-        "message_groups": 6,
-        "total_individual_messages": 12,
-        "percentage_of_total": 1.3498312710911136
-      },
-      {
-        "attack_type": "Business Email Compromise (BEC) attempt from unsolicited sender",
-        "message_groups": 19,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "attack_type": "- Business Email Compromise (BEC) attempt from untrusted sender AND Business Email Compromise (BEC) attempt from unsolicited sender",
-        "message_groups": 19,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "attack_type": "Business Email Compromise (BEC) attempt from untrusted sender",
-        "message_groups": 32,
+        "attack_type": "Spam",
+        "message_groups": 38,
         "total_individual_messages": 67,
-        "percentage_of_total": 7.536557930258718
+        "percentage_of_total": 34.5360824742268
       },
       {
-        "attack_type": "Detection Rules with Attack Score Verdict Malicious",
-        "message_groups": 32,
-        "total_individual_messages": 67,
-        "percentage_of_total": 7.536557930258718
+        "attack_type": "Credential Phishing",
+        "message_groups": 82,
+        "total_individual_messages": 134,
+        "percentage_of_total": 69.0721649484536
       },
       {
-        "attack_type": "Attachment: EML file with HTML attachment (unsolicited) w/Verdict not Benign",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "Attachment: EML file with HTML attachment (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "HTML smuggling containing recipient email address",
-        "message_groups": 8,
-        "total_individual_messages": 8,
-        "percentage_of_total": 0.8998875140607425
-      },
-      {
-        "attack_type": "Suspicious newly registered reply-to domain with engaging financial or urgent language",
-        "message_groups": 16,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
-      },
-      {
-        "attack_type": "Reconnaissance: All recipients cc/bcc'd or undisclosed",
-        "message_groups": 4,
-        "total_individual_messages": 33,
-        "percentage_of_total": 3.712035995500562
-      },
-      {
-        "attack_type": "Reconnaissance: Large unknown recipient list",
-        "message_groups": 2,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "attack_type": "Suspicious sender display name with long procedurally generated text blob",
-        "message_groups": 14,
-        "total_individual_messages": 14,
-        "percentage_of_total": 1.574803149606299
-      },
-      {
-        "attack_type": "Brand impersonation: Microsoft with low reputation links",
-        "message_groups": 37,
-        "total_individual_messages": 47,
-        "percentage_of_total": 5.286839145106861
-      },
-      {
-        "attack_type": "Unusually long local part from untrusted sender address",
-        "message_groups": 40,
-        "total_individual_messages": 62,
-        "percentage_of_total": 6.974128233970754
-      },
-      {
-        "attack_type": "Credential phishing: Fake password expiration from new and unsolicited sender",
-        "message_groups": 19,
-        "total_individual_messages": 26,
-        "percentage_of_total": 2.924634420697413
-      },
-      {
-        "attack_type": "Brand impersonation: Adobe with suspicious language and link",
-        "message_groups": 1,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "EML attachment with credential theft language (unknown sender)",
-        "message_groups": 6,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "attack_type": "Fake message thread - Untrusted sender with a mismatched freemail reply-to address",
-        "message_groups": 7,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "attack_type": "Attachment: EML with suspicious indicators",
-        "message_groups": 2,
-        "total_individual_messages": 7,
-        "percentage_of_total": 0.7874015748031495
-      },
-      {
-        "attack_type": "Link: QR code in EML attachment with credential phishing indicators",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "- Suspicious Japanese TLD",
-        "message_groups": 6,
-        "total_individual_messages": 8,
-        "percentage_of_total": 0.8998875140607425
-      },
-      {
-        "attack_type": "New Sender or Link domain <=10d w/Malicious or Suspicious Attack Score by Sublime",
-        "message_groups": 44,
-        "total_individual_messages": 107,
-        "percentage_of_total": 12.03599550056243
-      },
-      {
-        "attack_type": "New link domain (<=10d) from untrusted sender",
-        "message_groups": 41,
-        "total_individual_messages": 90,
-        "percentage_of_total": 10.123734533183352
-      },
-      {
-        "attack_type": "Callback phishing in body or attachment (untrusted sender)",
-        "message_groups": 52,
-        "total_individual_messages": 113,
-        "percentage_of_total": 12.710911136107987
-      },
-      {
-        "attack_type": "Callback phishing solicitation in message body",
-        "message_groups": 34,
-        "total_individual_messages": 37,
-        "percentage_of_total": 4.161979752530934
-      },
-      {
-        "attack_type": "Credential phishing: Suspicious subject with urgent financial request and link",
-        "message_groups": 7,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "attack_type": "Invoice from freemail sender (unsolicited) | non-likely benign",
-        "message_groups": 20,
-        "total_individual_messages": 22,
-        "percentage_of_total": 2.4746906636670416
-      },
-      {
-        "attack_type": "Invoice from freemail sender (unsolicited)",
-        "message_groups": 20,
-        "total_individual_messages": 22,
-        "percentage_of_total": 2.4746906636670416
-      },
-      {
-        "attack_type": "Link: Microsoft protected message with matching sender and recipient addresses",
-        "message_groups": 5,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "attack_type": "Brand impersonation: Amazon",
-        "message_groups": 8,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "attack_type": "Suspicious recipients pattern with no Compauth pass and suspicious content",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Honorific greeting BEC attempt with sender and reply-to mismatch",
-        "message_groups": 12,
-        "total_individual_messages": 16,
-        "percentage_of_total": 1.799775028121485
-      },
-      {
-        "attack_type": "Brand impersonation: Microsoft with embedded logo and credential theft language",
-        "message_groups": 20,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
-      },
-      {
-        "attack_type": "Attachment: Fake attachment image lure",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Attachment: Any HTML file (untrusted sender)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "- Attachment: Any HTML file (untrusted sender) & Attachment: Any HTML file (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "Attachment: Any HTML file (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "Request for Quote or Purchase (RFQ|RFP) with suspicious sender or recipient pattern",
-        "message_groups": 8,
-        "total_individual_messages": 15,
-        "percentage_of_total": 1.687289088863892
-      },
-      {
-        "attack_type": "Free email provider sender with mismatched provider reply-to",
-        "message_groups": 11,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "attack_type": "Service abuse: Dropbox share from an unsolicited reply-to address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Service abuse: Dropbox share with suspicious sender or document name",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Dropbox - Two or more Detection Rules flagged",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "New sender domain (<=10d) from untrusted sender",
-        "message_groups": 36,
-        "total_individual_messages": 57,
-        "percentage_of_total": 6.411698537682789
-      },
-      {
-        "attack_type": "Newly registered sender or reply-to domain with newly registered linked domain",
+        "attack_type": "Malware/Ransomware",
         "message_groups": 29,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
+        "total_individual_messages": 38,
+        "percentage_of_total": 19.587628865979383
       },
       {
-        "attack_type": "- New sender domain AND new link domain (<=10d) from first-time sender",
+        "attack_type": "BEC/Fraud",
         "message_groups": 33,
-        "total_individual_messages": 40,
-        "percentage_of_total": 4.499437570303712
+        "total_individual_messages": 62,
+        "percentage_of_total": 31.958762886597935
       },
       {
-        "attack_type": "Open Redirect: Google domain with /url path and suspicious indicators",
-        "message_groups": 26,
-        "total_individual_messages": 45,
-        "percentage_of_total": 5.061867266591676
-      },
-      {
-        "attack_type": "Cyrillic vowel substitution in subject or display name from unknown sender",
-        "message_groups": 15,
-        "total_individual_messages": 45,
-        "percentage_of_total": 5.061867266591676
-      },
-      {
-        "attack_type": "Attachment: Encrypted PDF with credential theft body",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Attachment: Callback phishing solicitation via image file",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Credential phishing: Suspicious e-sign agreement document notification",
-        "message_groups": 12,
-        "total_individual_messages": 24,
-        "percentage_of_total": 2.699662542182227
-      },
-      {
-        "attack_type": "Callback phishing via calendar invite",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Credential phishing link (unknown sender)",
-        "message_groups": 8,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "attack_type": "Job scam (unsolicited sender)",
-        "message_groups": 7,
-        "total_individual_messages": 39,
-        "percentage_of_total": 4.386951631046119
-      },
-      {
-        "attack_type": "Extortion / sextortion (untrusted sender)",
-        "message_groups": 4,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "attack_type": "Fake email quarantine notification",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Attachment: Adobe image lure in body or attachment with suspicious link",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Brand impersonation: Adobe (QR code)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Credential phishing content and link (untrusted sender)",
-        "message_groups": 17,
-        "total_individual_messages": 24,
-        "percentage_of_total": 2.699662542182227
-      },
-      {
-        "attack_type": "- Credential phishing content and link (untrusted sender) AND Credential phishing link (unknown sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Brand impersonation: Microsoft",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "attack_type": "Suspicious subject with long procedurally generated text blob",
-        "message_groups": 7,
-        "total_individual_messages": 7,
-        "percentage_of_total": 0.7874015748031495
-      },
-      {
-        "attack_type": "Attachment: EML with embedded Javascript in SVG file",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "attack_type": "VIP local_part impersonation from unsolicited sender",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Service abuse: DocuSign share from an unsolicited reply-to address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Brand Impersonation: PayPal",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Attachment: Macro files containing MHT content",
-        "message_groups": 1,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Brand impersonation: Sharepoint",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Display name impersonation using recipient SLD",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Impersonation using recipient domain (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "VIP / Executive impersonation (strict match, untrusted)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Spam: Single recipient duplicated in cc",
-        "message_groups": 3,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "attack_type": "QR Code with suspicious indicators",
+        "attack_type": "Callback Phishing",
         "message_groups": 5,
         "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "attack_type": "Link: QR Code with suspicious language (untrusted sender)",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Attachment: QR code with credential phishing indicators",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Generic service abuse from newly registered domain",
-        "message_groups": 1,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Brand impersonation: Sharepoint fake file share",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Constant Contact link infrastructure abuse",
-        "message_groups": 1,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "VIP impersonation with urgent request (strict match, untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "VIP impersonation with BEC language (near match, untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Employee impersonation with urgent request (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Employee impersonation: Payroll fraud",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Suspicious Request for Financial Information",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Suspicious request for financial information",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "BEC/Fraud: Generic scam attempt to undisclosed recipients",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Credential phishing: Fake storage alerts (unsolicited)",
-        "message_groups": 2,
-        "total_individual_messages": 23,
-        "percentage_of_total": 2.5871766029246346
-      },
-      {
-        "attack_type": "Display name and subject impersonation using recipient SLD (new sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Attachment: QR code link with base64-encoded recipient address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Link: QR code with phishing disposition in img or pdf",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Business Email Compromise (BEC) with request for mobile number",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "attack_type": "Fake voicemail notification (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "BEC/Fraud: Urgent language and suspicious sending/infrastructure patterns",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Disposable sender email (unsolicited)",
-        "message_groups": 4,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "attack_type": "Suspicious message with unscannable Cloudflare link",
-        "message_groups": 8,
-        "total_individual_messages": 10,
-        "percentage_of_total": 1.124859392575928
-      },
-      {
-        "attack_type": "BEC/Fraud: Romance scam",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Brand impersonation: Coinbase",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Brand impersonation: DocuSign branded attachment lure with no DocuSign links",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Attachment: Microsoft 365 credential phishing",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "attack_type": "Brand impersonation: Microsoft quarantine release notification in image attachment",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "attack_type": "Brand impersonation: Microsoft logo or suspicious language with open redirect",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Link: Microsoft Dynamics 365 form phishing",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Link: Secure SharePoint file share from new or unusual sender",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Link: Uncommon SharePoint document type with sender's display name",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Suspicious SharePoint file sharing",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Link: SharePoint files shared from GoDaddy federated tenants",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "Russia return-path TLD (untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "attack_type": "VIP / Executive impersonation in subject (untrusted)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "percentage_of_total": 2.5773195876288657
       }
     ],
     "tactics_and_techniques": [
       {
-        "tactic": "Spam: Default Microsoft Exchange Online sender domain (onmicrosoft.com)",
-        "message_groups": 71,
-        "total_individual_messages": 73,
-        "percentage_of_total": 8.211473565804274
+        "tactic": "Scripting",
+        "message_groups": 21,
+        "total_individual_messages": 29,
+        "percentage_of_total": 14.948453608247423
       },
       {
-        "tactic": "Remediate malicious flagged messages",
-        "message_groups": 437,
-        "total_individual_messages": 836,
-        "percentage_of_total": 94.03824521934759
-      },
-      {
-        "tactic": "Credential phishing: 'Secure message' and engaging language",
-        "message_groups": 8,
-        "total_individual_messages": 15,
-        "percentage_of_total": 1.687289088863892
-      },
-      {
-        "tactic": "BEC with unusual reply-to or return-path mismatch",
-        "message_groups": 23,
-        "total_individual_messages": 36,
-        "percentage_of_total": 4.049493813273341
-      },
-      {
-        "tactic": "Advance Fee Fraud (AFF) from freemail provider or suspicious TLD",
-        "message_groups": 48,
-        "total_individual_messages": 69,
-        "percentage_of_total": 7.761529808773904
-      },
-      {
-        "tactic": "Fake thread with suspicious indicators",
-        "message_groups": 18,
-        "total_individual_messages": 21,
-        "percentage_of_total": 2.3622047244094486
-      },
-      {
-        "tactic": "DocuSign Detection Rules of 2 or more",
-        "message_groups": 17,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "tactic": "Credential phishing: DocuSign embedded image lure with no DocuSign domains in links",
+        "tactic": "Image as content",
         "message_groups": 9,
-        "total_individual_messages": 23,
-        "percentage_of_total": 2.5871766029246346
-      },
-      {
-        "tactic": "Brand impersonation: DocuSign",
-        "message_groups": 16,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "tactic": "- Double TLD (Piggybacking valid TLD)",
-        "message_groups": 27,
-        "total_individual_messages": 91,
-        "percentage_of_total": 10.236220472440944
-      },
-      {
-        "tactic": "Credential phishing: Engaging language and other indicators (untrusted sender)",
-        "message_groups": 35,
-        "total_individual_messages": 52,
-        "percentage_of_total": 5.849268841394826
-      },
-      {
-        "tactic": "3 or more Detection Rules detected",
-        "message_groups": 154,
-        "total_individual_messages": 208,
-        "percentage_of_total": 23.397075365579305
-      },
-      {
-        "tactic": "Credential phishing language and suspicious indicators (unknown sender)",
-        "message_groups": 11,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "tactic": "Brand impersonation: Fake DocuSign HTML table not linking to DocuSign domains",
-        "message_groups": 5,
-        "total_individual_messages": 14,
-        "percentage_of_total": 1.574803149606299
-      },
-      {
-        "tactic": "Impersonation: Internal corporate services",
-        "message_groups": 5,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "tactic": "Impersonation: Human Resources with link or attachment and engaging language",
-        "message_groups": 6,
-        "total_individual_messages": 12,
-        "percentage_of_total": 1.3498312710911136
-      },
-      {
-        "tactic": "Business Email Compromise (BEC) attempt from unsolicited sender",
-        "message_groups": 19,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "tactic": "- Business Email Compromise (BEC) attempt from untrusted sender AND Business Email Compromise (BEC) attempt from unsolicited sender",
-        "message_groups": 19,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "tactic": "Business Email Compromise (BEC) attempt from untrusted sender",
-        "message_groups": 32,
-        "total_individual_messages": 67,
-        "percentage_of_total": 7.536557930258718
-      },
-      {
-        "tactic": "Detection Rules with Attack Score Verdict Malicious",
-        "message_groups": 32,
-        "total_individual_messages": 67,
-        "percentage_of_total": 7.536557930258718
-      },
-      {
-        "tactic": "Attachment: EML file with HTML attachment (unsolicited) w/Verdict not Benign",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "Attachment: EML file with HTML attachment (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "HTML smuggling containing recipient email address",
-        "message_groups": 8,
-        "total_individual_messages": 8,
-        "percentage_of_total": 0.8998875140607425
-      },
-      {
-        "tactic": "Suspicious newly registered reply-to domain with engaging financial or urgent language",
-        "message_groups": 16,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
-      },
-      {
-        "tactic": "Reconnaissance: All recipients cc/bcc'd or undisclosed",
-        "message_groups": 4,
-        "total_individual_messages": 33,
-        "percentage_of_total": 3.712035995500562
-      },
-      {
-        "tactic": "Reconnaissance: Large unknown recipient list",
-        "message_groups": 2,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
-      },
-      {
-        "tactic": "Suspicious sender display name with long procedurally generated text blob",
-        "message_groups": 14,
-        "total_individual_messages": 14,
-        "percentage_of_total": 1.574803149606299
-      },
-      {
-        "tactic": "Brand impersonation: Microsoft with low reputation links",
-        "message_groups": 37,
-        "total_individual_messages": 47,
-        "percentage_of_total": 5.286839145106861
-      },
-      {
-        "tactic": "Unusually long local part from untrusted sender address",
-        "message_groups": 40,
-        "total_individual_messages": 62,
-        "percentage_of_total": 6.974128233970754
-      },
-      {
-        "tactic": "Credential phishing: Fake password expiration from new and unsolicited sender",
-        "message_groups": 19,
         "total_individual_messages": 26,
-        "percentage_of_total": 2.924634420697413
+        "percentage_of_total": 13.402061855670103
       },
       {
-        "tactic": "Brand impersonation: Adobe with suspicious language and link",
-        "message_groups": 1,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
+        "tactic": "Evasion",
+        "message_groups": 53,
+        "total_individual_messages": 95,
+        "percentage_of_total": 48.96907216494845
       },
       {
-        "tactic": "EML attachment with credential theft language (unknown sender)",
-        "message_groups": 6,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "tactic": "Fake message thread - Untrusted sender with a mismatched freemail reply-to address",
-        "message_groups": 7,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "tactic": "Attachment: EML with suspicious indicators",
-        "message_groups": 2,
-        "total_individual_messages": 7,
-        "percentage_of_total": 0.7874015748031495
-      },
-      {
-        "tactic": "Link: QR code in EML attachment with credential phishing indicators",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "- Suspicious Japanese TLD",
-        "message_groups": 6,
-        "total_individual_messages": 8,
-        "percentage_of_total": 0.8998875140607425
-      },
-      {
-        "tactic": "New Sender or Link domain <=10d w/Malicious or Suspicious Attack Score by Sublime",
-        "message_groups": 44,
-        "total_individual_messages": 107,
-        "percentage_of_total": 12.03599550056243
-      },
-      {
-        "tactic": "New link domain (<=10d) from untrusted sender",
-        "message_groups": 41,
-        "total_individual_messages": 90,
-        "percentage_of_total": 10.123734533183352
-      },
-      {
-        "tactic": "Callback phishing in body or attachment (untrusted sender)",
-        "message_groups": 52,
-        "total_individual_messages": 113,
-        "percentage_of_total": 12.710911136107987
-      },
-      {
-        "tactic": "Callback phishing solicitation in message body",
-        "message_groups": 34,
-        "total_individual_messages": 37,
-        "percentage_of_total": 4.161979752530934
-      },
-      {
-        "tactic": "Credential phishing: Suspicious subject with urgent financial request and link",
-        "message_groups": 7,
-        "total_individual_messages": 32,
-        "percentage_of_total": 3.59955005624297
-      },
-      {
-        "tactic": "Invoice from freemail sender (unsolicited) | non-likely benign",
-        "message_groups": 20,
-        "total_individual_messages": 22,
-        "percentage_of_total": 2.4746906636670416
-      },
-      {
-        "tactic": "Invoice from freemail sender (unsolicited)",
-        "message_groups": 20,
-        "total_individual_messages": 22,
-        "percentage_of_total": 2.4746906636670416
-      },
-      {
-        "tactic": "Link: Microsoft protected message with matching sender and recipient addresses",
-        "message_groups": 5,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "tactic": "Brand impersonation: Amazon",
-        "message_groups": 8,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "tactic": "Suspicious recipients pattern with no Compauth pass and suspicious content",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Honorific greeting BEC attempt with sender and reply-to mismatch",
-        "message_groups": 12,
-        "total_individual_messages": 16,
-        "percentage_of_total": 1.799775028121485
-      },
-      {
-        "tactic": "Brand impersonation: Microsoft with embedded logo and credential theft language",
-        "message_groups": 20,
+        "tactic": "QR code",
+        "message_groups": 19,
         "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
+        "percentage_of_total": 13.917525773195877
       },
       {
-        "tactic": "Attachment: Fake attachment image lure",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
+        "tactic": "Social engineering",
+        "message_groups": 88,
+        "total_individual_messages": 138,
+        "percentage_of_total": 71.1340206185567
       },
       {
-        "tactic": "Attachment: Any HTML file (untrusted sender)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "- Attachment: Any HTML file (untrusted sender) & Attachment: Any HTML file (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "Attachment: Any HTML file (unsolicited)",
-        "message_groups": 6,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "Request for Quote or Purchase (RFQ|RFP) with suspicious sender or recipient pattern",
-        "message_groups": 8,
-        "total_individual_messages": 15,
-        "percentage_of_total": 1.687289088863892
-      },
-      {
-        "tactic": "Free email provider sender with mismatched provider reply-to",
-        "message_groups": 11,
-        "total_individual_messages": 13,
-        "percentage_of_total": 1.4623172103487065
-      },
-      {
-        "tactic": "Service abuse: Dropbox share from an unsolicited reply-to address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Service abuse: Dropbox share with suspicious sender or document name",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Dropbox - Two or more Detection Rules flagged",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "New sender domain (<=10d) from untrusted sender",
-        "message_groups": 36,
-        "total_individual_messages": 57,
-        "percentage_of_total": 6.411698537682789
-      },
-      {
-        "tactic": "Newly registered sender or reply-to domain with newly registered linked domain",
+        "tactic": "Free email provider",
         "message_groups": 29,
-        "total_individual_messages": 30,
-        "percentage_of_total": 3.374578177727784
+        "total_individual_messages": 57,
+        "percentage_of_total": 29.381443298969074
       },
       {
-        "tactic": "- New sender domain AND new link domain (<=10d) from first-time sender",
-        "message_groups": 33,
-        "total_individual_messages": 40,
-        "percentage_of_total": 4.499437570303712
+        "tactic": "Free file host",
+        "message_groups": 7,
+        "total_individual_messages": 24,
+        "percentage_of_total": 12.371134020618557
       },
       {
-        "tactic": "Open Redirect: Google domain with /url path and suspicious indicators",
-        "message_groups": 26,
-        "total_individual_messages": 45,
-        "percentage_of_total": 5.061867266591676
+        "tactic": "Impersonation: Brand",
+        "message_groups": 32,
+        "total_individual_messages": 59,
+        "percentage_of_total": 30.412371134020617
       },
       {
-        "tactic": "Cyrillic vowel substitution in subject or display name from unknown sender",
+        "tactic": "Spoofing",
         "message_groups": 15,
-        "total_individual_messages": 45,
-        "percentage_of_total": 5.061867266591676
+        "total_individual_messages": 25,
+        "percentage_of_total": 12.886597938144329
       },
       {
-        "tactic": "Attachment: Encrypted PDF with credential theft body",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "tactic": "HTML smuggling",
+        "message_groups": 15,
+        "total_individual_messages": 16,
+        "percentage_of_total": 8.24742268041237
       },
       {
-        "tactic": "Attachment: Callback phishing solicitation via image file",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Credential phishing: Suspicious e-sign agreement document notification",
-        "message_groups": 12,
-        "total_individual_messages": 24,
-        "percentage_of_total": 2.699662542182227
-      },
-      {
-        "tactic": "Callback phishing via calendar invite",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Credential phishing link (unknown sender)",
-        "message_groups": 8,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "tactic": "Job scam (unsolicited sender)",
-        "message_groups": 7,
-        "total_individual_messages": 39,
-        "percentage_of_total": 4.386951631046119
-      },
-      {
-        "tactic": "Extortion / sextortion (untrusted sender)",
-        "message_groups": 4,
-        "total_individual_messages": 6,
-        "percentage_of_total": 0.6749156355455568
-      },
-      {
-        "tactic": "Fake email quarantine notification",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Attachment: Adobe image lure in body or attachment with suspicious link",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Brand impersonation: Adobe (QR code)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Credential phishing content and link (untrusted sender)",
-        "message_groups": 17,
-        "total_individual_messages": 24,
-        "percentage_of_total": 2.699662542182227
-      },
-      {
-        "tactic": "- Credential phishing content and link (untrusted sender) AND Credential phishing link (unknown sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Brand impersonation: Microsoft",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "tactic": "Suspicious subject with long procedurally generated text blob",
-        "message_groups": 7,
-        "total_individual_messages": 7,
-        "percentage_of_total": 0.7874015748031495
-      },
-      {
-        "tactic": "Attachment: EML with embedded Javascript in SVG file",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "tactic": "VIP local_part impersonation from unsolicited sender",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Service abuse: DocuSign share from an unsolicited reply-to address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Brand Impersonation: PayPal",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "Attachment: Macro files containing MHT content",
-        "message_groups": 1,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "Brand impersonation: Sharepoint",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Display name impersonation using recipient SLD",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Impersonation using recipient domain (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "VIP / Executive impersonation (strict match, untrusted)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "Spam: Single recipient duplicated in cc",
-        "message_groups": 3,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "tactic": "QR Code with suspicious indicators",
+        "tactic": "Impersonation: VIP",
         "message_groups": 5,
-        "total_individual_messages": 5,
-        "percentage_of_total": 0.562429696287964
-      },
-      {
-        "tactic": "Link: QR Code with suspicious language (untrusted sender)",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Attachment: QR code with credential phishing indicators",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Generic service abuse from newly registered domain",
-        "message_groups": 1,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Brand impersonation: Sharepoint fake file share",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Constant Contact link infrastructure abuse",
-        "message_groups": 1,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "VIP impersonation with urgent request (strict match, untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "VIP impersonation with BEC language (near match, untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Employee impersonation with urgent request (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "Employee impersonation: Payroll fraud",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Suspicious Request for Financial Information",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Suspicious request for financial information",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "BEC/Fraud: Generic scam attempt to undisclosed recipients",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Credential phishing: Fake storage alerts (unsolicited)",
-        "message_groups": 2,
-        "total_individual_messages": 23,
-        "percentage_of_total": 2.5871766029246346
-      },
-      {
-        "tactic": "Display name and subject impersonation using recipient SLD (new sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Attachment: QR code link with base64-encoded recipient address",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Link: QR code with phishing disposition in img or pdf",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "Business Email Compromise (BEC) with request for mobile number",
-        "message_groups": 4,
-        "total_individual_messages": 4,
-        "percentage_of_total": 0.44994375703037126
-      },
-      {
-        "tactic": "Fake voicemail notification (untrusted sender)",
-        "message_groups": 2,
-        "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
-      },
-      {
-        "tactic": "BEC/Fraud: Urgent language and suspicious sending/infrastructure patterns",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Disposable sender email (unsolicited)",
-        "message_groups": 4,
-        "total_individual_messages": 11,
-        "percentage_of_total": 1.2373453318335208
-      },
-      {
-        "tactic": "Suspicious message with unscannable Cloudflare link",
-        "message_groups": 8,
         "total_individual_messages": 10,
-        "percentage_of_total": 1.124859392575928
+        "percentage_of_total": 5.154639175257731
       },
       {
-        "tactic": "BEC/Fraud: Romance scam",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Brand impersonation: Coinbase",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Brand impersonation: DocuSign branded attachment lure with no DocuSign links",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Attachment: Microsoft 365 credential phishing",
-        "message_groups": 3,
-        "total_individual_messages": 3,
-        "percentage_of_total": 0.3374578177727784
-      },
-      {
-        "tactic": "Brand impersonation: Microsoft quarantine release notification in image attachment",
+        "tactic": "PDF",
         "message_groups": 2,
         "total_individual_messages": 2,
-        "percentage_of_total": 0.22497187851518563
+        "percentage_of_total": 1.0309278350515463
       },
       {
-        "tactic": "Brand impersonation: Microsoft logo or suspicious language with open redirect",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "tactic": "Impersonation: Employee",
+        "message_groups": 4,
+        "total_individual_messages": 12,
+        "percentage_of_total": 6.185567010309279
       },
       {
-        "tactic": "Link: Microsoft Dynamics 365 form phishing",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "tactic": "Open redirect",
+        "message_groups": 7,
+        "total_individual_messages": 11,
+        "percentage_of_total": 5.670103092783505
       },
       {
-        "tactic": "Link: Secure SharePoint file share from new or unusual sender",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "tactic": "Lookalike domain",
+        "message_groups": 7,
+        "total_individual_messages": 12,
+        "percentage_of_total": 6.185567010309279
       },
       {
-        "tactic": "Link: Uncommon SharePoint document type with sender's display name",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "tactic": "Out of band pivot",
+        "message_groups": 2,
+        "total_individual_messages": 2,
+        "percentage_of_total": 1.0309278350515463
       },
       {
-        "tactic": "Suspicious SharePoint file sharing",
+        "tactic": "Punycode",
         "message_groups": 1,
         "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Link: SharePoint files shared from GoDaddy federated tenants",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "Russia return-path TLD (untrusted sender)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
-      },
-      {
-        "tactic": "VIP / Executive impersonation in subject (untrusted)",
-        "message_groups": 1,
-        "total_individual_messages": 1,
-        "percentage_of_total": 0.11248593925759282
+        "percentage_of_total": 0.5154639175257731
       }
     ],
     "detection_methods": [
       {
-        "detection_method": "low",
-        "message_groups": 157,
-        "total_individual_messages": 291,
-        "percentage_of_total": 32.73340832395951
+        "detection_method": "File analysis",
+        "message_groups": 39,
+        "total_individual_messages": 71,
+        "percentage_of_total": 36.597938144329895
       },
       {
-        "detection_method": null,
-        "message_groups": 437,
-        "total_individual_messages": 1370,
-        "percentage_of_total": 154.10573678290214
+        "detection_method": "Sender analysis",
+        "message_groups": 97,
+        "total_individual_messages": 161,
+        "percentage_of_total": 82.9896907216495
       },
       {
-        "detection_method": "medium",
-        "message_groups": 325,
-        "total_individual_messages": 1114,
-        "percentage_of_total": 125.30933633295838
+        "detection_method": "XML analysis",
+        "message_groups": 5,
+        "total_individual_messages": 12,
+        "percentage_of_total": 6.185567010309279
       },
       {
-        "detection_method": "high",
-        "message_groups": 116,
-        "total_individual_messages": 253,
-        "percentage_of_total": 28.45894263217098
+        "detection_method": "Header analysis",
+        "message_groups": 90,
+        "total_individual_messages": 150,
+        "percentage_of_total": 77.31958762886599
+      },
+      {
+        "detection_method": "Archive analysis",
+        "message_groups": 8,
+        "total_individual_messages": 15,
+        "percentage_of_total": 7.731958762886598
+      },
+      {
+        "detection_method": "QR code analysis",
+        "message_groups": 21,
+        "total_individual_messages": 32,
+        "percentage_of_total": 16.49484536082474
+      },
+      {
+        "detection_method": "Content analysis",
+        "message_groups": 81,
+        "total_individual_messages": 125,
+        "percentage_of_total": 64.43298969072166
+      },
+      {
+        "detection_method": "Natural Language Understanding",
+        "message_groups": 64,
+        "total_individual_messages": 113,
+        "percentage_of_total": 58.24742268041238
+      },
+      {
+        "detection_method": "URL analysis",
+        "message_groups": 55,
+        "total_individual_messages": 92,
+        "percentage_of_total": 47.42268041237113
+      },
+      {
+        "detection_method": "Computer Vision",
+        "message_groups": 36,
+        "total_individual_messages": 70,
+        "percentage_of_total": 36.08247422680412
+      },
+      {
+        "detection_method": "Optical Character Recognition",
+        "message_groups": 18,
+        "total_individual_messages": 42,
+        "percentage_of_total": 21.649484536082475
+      },
+      {
+        "detection_method": "URL screenshot",
+        "message_groups": 14,
+        "total_individual_messages": 22,
+        "percentage_of_total": 11.34020618556701
+      },
+      {
+        "detection_method": "Javascript analysis",
+        "message_groups": 5,
+        "total_individual_messages": 5,
+        "percentage_of_total": 2.5773195876288657
+      },
+      {
+        "detection_method": "HTML analysis",
+        "message_groups": 20,
+        "total_individual_messages": 26,
+        "percentage_of_total": 13.402061855670103
+      },
+      {
+        "detection_method": "Whois",
+        "message_groups": 9,
+        "total_individual_messages": 15,
+        "percentage_of_total": 7.731958762886598
+      },
+      {
+        "detection_method": "Exif analysis",
+        "message_groups": 1,
+        "total_individual_messages": 1,
+        "percentage_of_total": 0.5154639175257731
       }
     ],
     "top_senders": [
       {
-        "domain": "gmail.com",
-        "message_groups": 79,
-        "total_individual_messages": 2149,
-        "percentage_of_total": 241.73228346456693
+        "domain": "domain_39910ae0.com",
+        "message_groups": 20,
+        "total_individual_messages": 70,
+        "percentage_of_total": 36.08247422680412
       },
       {
-        "domain": "mdpt.gov.my",
-        "message_groups": 6,
-        "total_individual_messages": 65,
-        "percentage_of_total": 7.311586051743532
-      },
-      {
-        "domain": "domain_c3928aff.com",
+        "domain": "one.cnship.top",
         "message_groups": 1,
-        "total_individual_messages": 50,
-        "percentage_of_total": 5.62429696287964
-      },
-      {
-        "domain": "domain_79e3865b.com",
-        "message_groups": 36,
-        "total_individual_messages": 36,
-        "percentage_of_total": 4.049493813273341
-      },
-      {
-        "domain": "domain_1b539d62.com",
-        "message_groups": 31,
-        "total_individual_messages": 31,
-        "percentage_of_total": 3.487064116985377
-      },
-      {
-        "domain": "domain_6c051871.com",
-        "message_groups": 1,
-        "total_individual_messages": 29,
-        "percentage_of_total": 3.262092238470191
-      },
-      {
-        "domain": "aol.com",
-        "message_groups": 1,
-        "total_individual_messages": 29,
-        "percentage_of_total": 3.262092238470191
-      },
-      {
-        "domain": "domain_08d5861a.com",
-        "message_groups": 6,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
-      },
-      {
-        "domain": "domain_f469d35d.com",
-        "message_groups": 1,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
-      },
-      {
-        "domain": "domain_036b4e75.com",
-        "message_groups": 1,
-        "total_individual_messages": 27,
-        "percentage_of_total": 3.0371203599550056
+        "total_individual_messages": 42,
+        "percentage_of_total": 21.649484536082475
       }
     ],
     "top_malicious_emails": [
       {
-        "received_datetime": "2025-09-13T17:05:34.373875+00:00",
-        "subject": "[Account Security Alert]",
-        "sender_email": "user_73e0f3d1@domain_c3928aff.com",
-        "url": "",
-        "total_messages": 50
-      },
-      {
-        "received_datetime": "2025-09-03T11:19:24.255941+00:00",
-        "subject": "[Important Notice]",
-        "sender_email": "user_e06df732@gmail.com",
-        "url": "",
-        "total_messages": 40
-      },
-      {
-        "received_datetime": "2025-09-05T16:07:39.709058+00:00",
-        "subject": "[Empty Subject]",
-        "sender_email": "user_59c4f49a@gmail.com",
-        "url": "",
-        "total_messages": 29
-      },
-      {
-        "received_datetime": "2025-09-14T14:10:08.095757+00:00",
-        "subject": "[System Update]",
-        "sender_email": "user_3e81d7e7@domain_a6654df3.com",
-        "url": "",
-        "total_messages": 28
-      },
-      {
-        "received_datetime": "2025-09-17T20:30:25.181456+00:00",
+        "received_datetime": "2025-09-26T14:38:09.150195+00:00",
         "subject": "[Shared Document]",
-        "sender_email": "user_b5c182cd@domain_f469d35d.com",
-        "url": "",
-        "total_messages": 27
-      },
-      {
-        "received_datetime": "2025-09-21T13:36:15.172662+00:00",
-        "subject": "[Document Review Request]",
-        "sender_email": "user_dbee971d@domain_780ec860.com",
-        "url": "",
-        "total_messages": 24
-      },
-      {
-        "received_datetime": "2025-09-14T17:53:52.439097+00:00",
-        "subject": "[Business Communication]",
-        "sender_email": "user_84f6a4ee@domain_2a50f2b1.com",
+        "sender_email": "user_f632fa6f@domain_b28ee556.com",
         "url": "",
         "total_messages": 21
       },
       {
-        "received_datetime": "2025-09-18T16:24:37.783642+00:00",
-        "subject": "[Service Notification]",
-        "sender_email": "user_a1234b31@domain_0ff5ed25.com",
+        "received_datetime": "2025-09-26T12:48:39.022166+00:00",
+        "subject": "[System Update]",
+        "sender_email": "user_c36b9429@domain_9daea044.com",
         "url": "",
-        "total_messages": 20
-      },
-      {
-        "received_datetime": "2025-09-14T14:18:25.599571+00:00",
-        "subject": "[Document Review Request]",
-        "sender_email": "user_3e81d7e7@domain_a6654df3.com",
-        "url": "",
-        "total_messages": 18
-      },
-      {
-        "received_datetime": "2025-09-14T02:02:21.075062+00:00",
-        "subject": "[Account Security Alert]",
-        "sender_email": "user_9eb41d5e@yahoo.com",
-        "url": "",
-        "total_messages": 18
+        "total_messages": 17
       }
     ]
   },
   "user_reports_overview": {
     "key_findings": {
       "total_user_reported": {
-        "groups": 0,
-        "individual_messages": 0
+        "groups": 1,
+        "individual_messages": 60
       },
       "malicious_verdicts": {
         "groups": 0,
         "individual_messages": 0,
-        "percentage": 0,
+        "percentage": 0.0,
         "verdict_type": "Attack Score Verdict"
       }
     },
-    "classifications": [],
-    "top_reporters": [],
-    "top_reporters_effectiveness": []
+    "classifications": [
+      {
+        "verdict": "spam",
+        "verdict_type": "Attack Score Verdict",
+        "message_groups": 1,
+        "total_user_reported_messages": 60,
+        "percentage_of_total": 100.0
+      }
+    ],
+    "top_reporters": [
+      {
+        "reporter_email": "user_b6eff5f5@domain_39910ae0.com",
+        "report_groups": 2,
+        "total_reported_messages": 60,
+        "percentage_of_total": 100.0
+      }
+    ],
+    "top_reporters_effectiveness": [
+      {
+        "reporter_email": "user_b6eff5f5@domain_39910ae0.com",
+        "reported_messages": 2,
+        "total_individual_messages": 60,
+        "malicious_percentage": 0,
+        "spam_percentage": 100.0,
+        "graymail_percentage": 0,
+        "benign_percentage": 0
+      }
+    ]
   }
 }
