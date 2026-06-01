@@ -1,0 +1,25 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Export folder - contains CSV exports that shouldn't be committed
+export/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
