@@ -2,7 +2,7 @@
 
 """
 Mailbox Utility Script (Comprehensive Mailbox Management)
-Version: 2026.06.01.1
+Version: 2026.06.08.1
 Author: Sergio Gonzalez (sergio@sublimesecurity.com)
 
 A comprehensive utility script for managing mailboxes in Sublime Security.
@@ -50,8 +50,12 @@ import csv
 import random
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Optional, Any, Tuple
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 import json
+import ssl
+import urllib.request
+import urllib.error
+import concurrent.futures
 
 # Check and setup virtual environment BEFORE importing external dependencies
 def is_virtual_env() -> bool:
@@ -107,51 +111,22 @@ def setup_virtual_environment() -> bool:
 
 def install_venv_dependencies() -> bool:
     """
-    Install required dependencies in the virtual environment.
+    Verify runtime dependencies.
+
+    This utility runs entirely on the Python standard library, so there are no
+    third-party packages to install. This function is retained so the existing
+    startup flow keeps working and, importantly, so the script runs in
+    locked-down environments that have no access to PyPI (e.g. behind a
+    restrictive proxy/firewall).
+
+    certifi is used opportunistically for SSL if it happens to be present, but
+    is no longer required or installed; SSL falls back to the system trust
+    store when certifi is absent (see APIClient._create_session).
 
     Returns:
-        True if installation successful, False otherwise
+        True always.
     """
-    if not is_virtual_env():
-        print("❌ Not running in virtual environment")
-        return False
-
-    try:
-        # Check if dependencies are already installed
-        try:
-            import aiohttp
-            from tabulate import tabulate
-            # Check for certifi on Python 3.13+
-            python_version = sys.version_info
-            if python_version >= (3, 13):
-                import certifi
-            return True
-        except ImportError:
-            pass
-
-        print("📦 Installing dependencies for self-contained operation...")
-
-        # Install base dependencies
-        packages = ["aiohttp", "tabulate"]
-
-        # Add certifi for Python 3.13+
-        python_version = sys.version_info
-        if python_version >= (3, 13):
-            packages.append("certifi")
-
-        subprocess.check_call([sys.executable, "-m", "pip", "install"] + packages,
-                            stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-        print("✅ Dependencies installed successfully")
-
-        # Verify installation
-        import aiohttp
-        from tabulate import tabulate
-        if python_version >= (3, 13):
-            import certifi
-        return True
-    except Exception as e:
-        print(f"❌ Failed to install dependencies: {e}")
-        return False
+    return True
 
 
 # Setup virtual environment and install dependencies
@@ -161,9 +136,8 @@ if __name__ == "__main__":
         print("❌ Failed to setup dependencies. Exiting.")
         sys.exit(1)
 
-# Import external dependencies after venv setup
-import aiohttp
-from tabulate import tabulate
+# No third-party imports required: this utility runs on the Python standard
+# library only (urllib for HTTP, asyncio for concurrency).
 
 
 class Colors:
@@ -533,6 +507,9 @@ class MailboxUtilityAPI:
         self.api_token = api_token
         self.debug = debug
         self.session = None
+        self._executor = None
+        self._ssl_context = None
+        self._headers = {}
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -541,38 +518,57 @@ class MailboxUtilityAPI:
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit."""
-        if self.session:
-            await self.session.close()
+        if self._executor:
+            self._executor.shutdown(wait=True)
+            self._executor = None
+        self.session = None
 
     async def _create_session(self):
-        """Create aiohttp session with SSL handling."""
-        connector = None
+        """Set up the SSL context, default headers, and request thread pool.
 
-        # Handle SSL for Python 3.13+
-        if sys.version_info >= (3, 13):
-            try:
-                import certifi
-                import ssl
-                ssl_context = ssl.create_default_context(cafile=certifi.where())
-                connector = aiohttp.TCPConnector(ssl=ssl_context)
-            except ImportError:
-                # Fallback to default connector
-                connector = aiohttp.TCPConnector(ssl=False)
-        else:
-            # For older Python versions, use default SSL handling
-            connector = aiohttp.TCPConnector()
+        Uses only the Python standard library. Blocking urllib requests are run
+        in a thread pool via loop.run_in_executor, so the existing asyncio-based
+        parallelism (Semaphore + gather) keeps working unchanged.
+        """
+        # Prefer certifi's CA bundle if it happens to be installed; otherwise
+        # fall back to the system trust store. certifi is no longer required.
+        try:
+            import certifi
+            self._ssl_context = ssl.create_default_context(cafile=certifi.where())
+        except Exception:
+            self._ssl_context = ssl.create_default_context()
 
-        timeout = aiohttp.ClientTimeout(total=60)
+        self._headers = {
+            'Authorization': f'Bearer {self.api_token}',
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mailbox-Utility/2026.06.08.1'
+        }
 
-        self.session = aiohttp.ClientSession(
-            connector=connector,
-            timeout=timeout,
-            headers={
-                'Authorization': f'Bearer {self.api_token}',
-                'Content-Type': 'application/json',
-                'User-Agent': 'Mailbox-Utility/2025.10.03.1'
-            }
-        )
+        # Sized to comfortably cover the maximum parallel worker count (15).
+        self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=32)
+
+        # Truthy marker so _make_request knows the session is initialized.
+        self.session = True
+
+    def _perform_request(self, method: str, url: str, body: Optional[bytes]):
+        """Execute a single blocking HTTP request via urllib (runs in a thread).
+
+        Returns (status_code, reason, response_text, headers). HTTP error
+        responses (4xx/5xx) are returned like normal responses rather than
+        raised, so the async caller can apply its retry policy uniformly.
+        Network-level failures propagate as exceptions to the caller.
+        """
+        request = urllib.request.Request(url, data=body, method=method)
+        for key, value in self._headers.items():
+            request.add_header(key, value)
+
+        try:
+            with urllib.request.urlopen(request, timeout=60, context=self._ssl_context) as response:
+                text = response.read().decode('utf-8', errors='replace')
+                return response.status, response.reason, text, response.headers
+        except urllib.error.HTTPError as e:
+            text = e.read().decode('utf-8', errors='replace') if e.fp else ''
+            return e.code, (e.reason or ''), text, (e.headers or {})
 
     async def _make_request(self, method: str, endpoint: str, params: Optional[Dict] = None,
                           json_data: Optional[Dict] = None, max_retries: int = 3) -> Dict:
@@ -596,7 +592,13 @@ class MailboxUtilityAPI:
             await self._create_session()
 
         url = f"{self.base_url}/{endpoint}"
+        if params:
+            url = f"{url}?{urlencode(params)}"
+
+        body = json.dumps(json_data).encode('utf-8') if json_data is not None else None
+
         backoff_factor = 1.5
+        loop = asyncio.get_running_loop()
 
         for attempt in range(max_retries + 1):
             try:
@@ -607,62 +609,69 @@ class MailboxUtilityAPI:
                     if json_data:
                         print(f"{Colors.cyan('Request Body (JSON):')} {json.dumps(json_data, indent=2)}")
 
-                async with self.session.request(method, url, params=params, json=json_data) as response:
-                    response_text = await response.text()
+                # Run the blocking urllib request in the thread pool so multiple
+                # requests can be in flight concurrently under asyncio.
+                status, reason, response_text, response_headers = await loop.run_in_executor(
+                    self._executor, self._perform_request, method, url, body
+                )
 
-                    if self.debug:
-                        print(f"{Colors.cyan('Response Status:')} {response.status}")
-                        print(f"{Colors.cyan('Response Body:')} {response_text[:500]}{'...' if len(response_text) > 500 else ''}")
+                if self.debug:
+                    print(f"{Colors.cyan('Response Status:')} {status}")
+                    print(f"{Colors.cyan('Response Body:')} {response_text[:500]}{'...' if len(response_text) > 500 else ''}")
 
-                    response.raise_for_status()
-
-                    # Handle empty responses
-                    if not response_text.strip():
-                        return {}
-
-                    try:
-                        response_data = json.loads(response_text)
-                        return response_data
-                    except json.JSONDecodeError:
-                        if self.debug:
-                            print(f"{Colors.yellow('Warning: Non-JSON response received')}")
-                        return {'raw_response': response_text}
-
-            except aiohttp.ClientResponseError as e:
-                # Don't retry 404 errors - resource not found is permanent
-                if e.status == 404:
-                    error_message = self._format_error_message(method, endpoint, f"{e.status} {e.message}", response_text if 'response_text' in locals() else "")
-                    print(error_message)
-                    raise APIError(f"Request failed: {e.status} {e.message}")
-
-                # Handle rate limiting with longer backoff
-                if e.status == 429:
-                    if attempt == max_retries:
-                        error_message = self._format_error_message(method, endpoint, f"{e.status} {e.message}", response_text if 'response_text' in locals() else "")
+                # Mirror aiohttp's raise_for_status() behavior for error statuses.
+                if status >= 400:
+                    # Don't retry 404 errors - resource not found is permanent
+                    if status == 404:
+                        error_message = self._format_error_message(method, endpoint, f"{status} {reason}", response_text)
                         print(error_message)
-                        # Extract retry-after header if available
-                        retry_after = getattr(e, 'headers', {}).get('Retry-After')
-                        retry_after_seconds = float(retry_after) if retry_after else None
-                        raise RateLimitError(f"Rate limited: {e.status} {e.message}", retry_after_seconds)
+                        raise APIError(f"Request failed: {status} {reason}")
 
-                    # Longer backoff for rate limiting
-                    wait_time = min(60, backoff_factor * (3 ** attempt))  # Cap at 60 seconds
+                    # Handle rate limiting with longer backoff
+                    if status == 429:
+                        if attempt == max_retries:
+                            error_message = self._format_error_message(method, endpoint, f"{status} {reason}", response_text)
+                            print(error_message)
+                            # Extract retry-after header if available
+                            retry_after = response_headers.get('Retry-After')
+                            retry_after_seconds = float(retry_after) if retry_after else None
+                            raise RateLimitError(f"Rate limited: {status} {reason}", retry_after_seconds)
+
+                        # Longer backoff for rate limiting
+                        wait_time = min(60, backoff_factor * (3 ** attempt))  # Cap at 60 seconds
+                        if self.debug:
+                            print(f"Rate limited, retry {attempt + 1}/{max_retries} after {wait_time}s")
+                        await asyncio.sleep(wait_time)
+                        continue
+
+                    if attempt == max_retries:
+                        error_message = self._format_error_message(method, endpoint, f"{status} {reason}", response_text)
+                        print(error_message)
+                        raise APIError(f"Request failed: {status} {reason}")
+
+                    wait_time = backoff_factor * (2 ** attempt)
                     if self.debug:
-                        print(f"Rate limited, retry {attempt + 1}/{max_retries} after {wait_time}s")
+                        print(f"Retry {attempt + 1}/{max_retries} after {wait_time}s")
                     await asyncio.sleep(wait_time)
                     continue
 
-                if attempt == max_retries:
-                    error_message = self._format_error_message(method, endpoint, f"{e.status} {e.message}", response_text if 'response_text' in locals() else "")
-                    print(error_message)
-                    raise APIError(f"Request failed: {e.status} {e.message}")
+                # Handle empty responses
+                if not response_text.strip():
+                    return {}
 
-                wait_time = backoff_factor * (2 ** attempt)
-                if self.debug:
-                    print(f"Retry {attempt + 1}/{max_retries} after {wait_time}s")
-                await asyncio.sleep(wait_time)
+                try:
+                    return json.loads(response_text)
+                except json.JSONDecodeError:
+                    if self.debug:
+                        print(f"{Colors.yellow('Warning: Non-JSON response received')}")
+                    return {'raw_response': response_text}
+
+            except APIError:
+                # Already-formatted terminal error (404, final 429, final 4xx/5xx) - propagate.
+                raise
 
             except Exception as e:
+                # Network-level failure (timeout, connection error, SSL, etc.)
                 if attempt == max_retries:
                     error_message = self._format_error_message(method, endpoint, str(e), "")
                     print(error_message)
