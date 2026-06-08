@@ -2,9 +2,10 @@
 
 A comprehensive Python utility for managing mailboxes in Sublime Security from the command line.
 
-**Version:** 2026.06.01.1
-**Last Updated:** June 1, 2026
+**Version:** 2026.06.08.1
+**Last Updated:** June 8, 2026
 **Recent Changes:**
+- **📦 Zero third-party dependencies**: The utility now runs entirely on the Python standard library (HTTP via `urllib`, concurrency via `asyncio` + a thread pool). `aiohttp`, `tabulate`, and `certifi` are no longer required or installed — no more `pip install`. This unblocks installation in locked-down environments behind restrictive proxies/firewalls. Parallel processing and all features are unchanged.
 - **📄 Per-Email Status Report**: Activate/deactivate operations now export a timestamped CSV listing each attempted email address and its outcome (`activated`/`deactivated` or `failed`). The report is written to disk only — the CLI just prints the filename
 - **`--base-url`**: Non-interactive full API base URL for any region host (e.g. `https://na-east-4.platform.sublime.security`); mutually exclusive with `--region`
 - **⚡ Enhanced Parallel Processing**: Optimized concurrent operations with intelligent worker scaling (5-15 workers based on dataset size)
@@ -20,6 +21,15 @@ A comprehensive Python utility for managing mailboxes in Sublime Security from t
 ## Overview
 
 The Mailbox Utility Script provides Sales Engineers and Detection Engineers with a comprehensive interface for managing mailboxes in Sublime Security. This script consolidates functionality from multiple tools into a single, powerful utility for complete mailbox lifecycle management.
+
+## What's New in v2026.06.08.1 🆕
+
+- **Zero third-party dependencies (standard library only)**: Previously the utility required `aiohttp` and `tabulate` (plus `certifi` on Python 3.13+), which it installed via `pip` on first run. It now uses only the Python standard library:
+  - HTTP requests use `urllib.request` instead of `aiohttp`. Blocking requests run inside a `ThreadPoolExecutor` driven by the existing `asyncio` event loop, so the parallel activation engine (worker scaling, rate-limit backoff, retries) behaves exactly as before.
+  - `tabulate` was unused and has been removed.
+  - `certifi` is optional — used if present, otherwise the system trust store is used.
+  - The startup flow still creates a `.venv` for isolation but **installs nothing**, so it works with no PyPI/internet access.
+  - **Bonus**: `urllib` honors the standard `HTTP_PROXY` / `HTTPS_PROXY` environment variables out of the box, which can help in proxied corporate networks.
 
 ## What's New in v2026.06.01.1 🆕
 
@@ -82,6 +92,7 @@ Latest version includes enhanced parallel processing and performance optimizatio
 ## Prerequisites
 
 - Python 3.8+ (tested up to Python 3.13)
+- **No third-party Python packages required** — runs on the standard library only (no `pip install`)
 - An active Sublime Security account with API access
 - API key with appropriate permissions for mailbox and HIP management
 
@@ -99,16 +110,19 @@ Latest version includes enhanced parallel processing and performance optimizatio
    ```
 
 2. Install required dependencies:
-   ```bash
-   pip install aiohttp tabulate
-   ```
 
-   Note: The script will attempt to install these automatically if missing.
+   **None.** As of v2026.06.08.1 this utility runs entirely on the Python
+   standard library — there is **no `pip install` step**. This makes it safe to
+   run in locked-down environments (restrictive proxy/firewall, no PyPI access).
 
-3. For Python 3.13+, the script automatically handles SSL certificate verification:
-   ```bash
-   pip install certifi  # Installed automatically if needed
-   ```
+   The script still creates a local `.venv` for isolation, but it no longer
+   installs any third-party packages into it.
+
+3. SSL certificate verification:
+
+   No action needed. The script uses the system trust store by default. If
+   `certifi` happens to be installed it will be used automatically, but it is
+   not required.
 
 ## Usage
 
